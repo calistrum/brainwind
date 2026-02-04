@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Brainwind Example</title>
+    <!-- NO CSS REQUIRED - Brainwind is just semantic markup -->
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Brainwind Example</h1>
+    
+    <!-- This is Brainwind - just HTML with semantic attributes -->
+    <p class="bw-context" data-bw-vocab="https://schema.org/">
+        The 
+        <span class="bw-node" data-bw-type="Product" data-bw-id="san-marzano">
+            San Marzano Tomatoes
+        </span> 
+        are
+        <i class="bw-edge" data-bw-rel="grownIn">harvested from</i> 
+        the volcanic soil of 
+        <span class="bw-node" data-bw-type="Place" data-bw-id="mount-vesuvius">
+            Mount Vesuvius
+        </span>.
+    </p>
+
+    <hr>
+
+    <h3>What this creates:</h3>
+    <ul>
+        <li><strong>Subject:</strong> San Marzano Tomatoes (Product)</li>
+        <li><strong>Predicate:</strong> grownIn</li>
+        <li><strong>Object:</strong> Mount Vesuvius (Place)</li>
+    </ul>
+
+    <p><small>Open browser console to see extracted semantic data.</small></p>
+
+    <script>
+        // Extract and display semantic data
+        const nodes = document.querySelectorAll('.bw-node');
+        const edges = document.querySelectorAll('.bw-edge');
+        
+        console.log('🧠 Brainwind Semantic Data:');
+        console.log(`Entities: ${nodes.length}`);
+        console.log(`Relationships: ${edges.length}`);
+        
+        nodes.forEach(node => {
+            console.log({
+                id: node.getAttribute('data-bw-id'),
+                type: node.getAttribute('data-bw-type'),
+                text: node.textContent.trim()
+            });
+        });
+    </script>
+</body>
+</html>

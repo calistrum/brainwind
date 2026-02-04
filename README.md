@@ -2,9 +2,11 @@
 
 **Stop styling pixels. Start styling synapses.**
 
-Brainwind is a utility-first framework for **Relational HTML**. It allows you to decorate standard HTML with ontological weight, transforming flat prose into a reactive, machine-readable Knowledge Graph.
+Brainwind is a **semantic markup pattern** for creating Relational HTML. It provides a simple attribute convention that transforms flat prose into machine-readable knowledge graphs—no framework, no dependencies, just semantic HTML.
 
 While **Tailwind** manages the _Eyes_ and **HTMX** manages the _Server_, **Brainwind** manages the _Mind_.
+
+> **Note**: Brainwind is fundamentally a markup convention and RDF mapping pattern. The CSS file is **entirely optional**—use it only for development/debugging to visualize your semantic annotations.
 
 ---
 
@@ -48,7 +50,9 @@ The foundation of RDF is the **Subject-Predicate-Object** triple. In Brainwind:
 
 Brainwind is **element-agnostic**. You can apply it to `<span>`, `<div>`, `<td>`, or any tag that fits your layout.
 
-### Basic Example
+**No installation required.** Just add the attributes to your HTML.
+
+### Basic Example (No CSS Needed)
 
 ```html
 <p class="bw-context" data-bw-vocab="https://schema.org/">
@@ -95,7 +99,9 @@ Brainwind is **element-agnostic**. You can apply it to `<span>`, `<div>`, `<td>`
 
 ## 🧠 Brainwind + HTMX: The "Thinking" UI
 
-Brainwind is designed to be the **data-source** for HTMX. Because the HTML is now self-describing, your UI can "react" to the **meaning** of the text.
+Brainwind is designed to be the **data-source** for HTMX. Because the HTML is self-describing, your UI can "react" to the **meaning** of the text.
+
+No special setup needed—just combine Brainwind attributes with HTMX directives:
 
 ```html
 <span 
@@ -178,27 +184,7 @@ See [`examples/system-prompt.md`](examples/system-prompt.md) for a complete prom
 
 ---
 
-## 🎨 Visual Styling
-
-Brainwind comes with minimal, "ghost-UI" styling that provides subtle visual cues without overwhelming the content.
-
-Include the CSS:
-
-```html
-<link rel="stylesheet" href="brainwind.css">
-```
-
-### Default Styles
-
-- **Nodes** (`.bw-node`): Subtle dashed underline that becomes solid on hover
-- **Edges** (`.bw-edge`): Italic, muted color
-- **Type-specific colors**: Optional visual distinction for different entity types
-
-See [`brainwind.css`](brainwind.css) for the full stylesheet.
-
----
-
-## 🌍 Beyond the Spreadsheet: Real-World Examples
+##  Beyond the Spreadsheet: Real-World Examples
 
 Brainwind turns any "wall of text" into a navigable map. Whether you're documenting a recipe, a supply chain, a medical study, or a legal contract, the relational HTML remains the same.
 
@@ -276,29 +262,34 @@ Brainwind is ontology-agnostic, but here are common types used with Schema.org:
 
 ## 🚦 Getting Started
 
-1. **Include the CSS** (optional but recommended for visual cues):
-   ```html
-   <link rel="stylesheet" href="brainwind.css">
-   ```
+**No installation required.** Brainwind is a markup pattern, not a library.
 
-2. **Add a context wrapper** to define your vocabulary:
+1. **Add a context wrapper** to define your vocabulary:
    ```html
    <div class="bw-context" data-bw-vocab="https://schema.org/">
    ```
 
-3. **Mark your entities** with `.bw-node`:
+2. **Mark your entities** with `.bw-node`:
    ```html
    <span class="bw-node" data-bw-type="Person" data-bw-id="unique-id">
      Entity Name
    </span>
    ```
 
-4. **Connect them** with `.bw-edge`:
+3. **Connect them** with `.bw-edge`:
    ```html
    <span class="bw-edge" data-bw-rel="relationshipType">
      connects to
    </span>
    ```
+
+That's it! Your HTML is now a queryable knowledge graph.
+
+**Want visual feedback?** Add your own styling:
+```css
+.bw-node { border-bottom: 1px dashed blue; cursor: help; }
+.bw-edge { font-style: italic; color: gray; }
+```
 
 ---
 

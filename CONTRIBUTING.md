@@ -6,7 +6,6 @@ Thank you for your interest in contributing to Brainwind! This project aims to m
 
 ### 1. Documentation
 
-- Improve examples and tutorials
 - Add use cases from different domains
 - Translate documentation to other languages
 - Create video tutorials or blog posts

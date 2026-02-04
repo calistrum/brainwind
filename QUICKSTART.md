@@ -4,33 +4,16 @@ Get up and running with Brainwind in 5 minutes.
 
 ## What is Brainwind?
 
-Brainwind makes your HTML and Markdown **semantically aware**. Instead of just styling how text *looks*, you describe what it *means*. This creates machine-readable documents that can be:
+Brainwind is a **semantic markup pattern**, not a framework. It's a simple convention for adding meaning to your HTML using `data-*` attributes and class names.
+
+Instead of just styling how text *looks*, you describe what it *means*. This creates machine-readable documents that can be:
 
 - Queried like a database
 - Converted to knowledge graphs
 - Enhanced with AI
 - Linked to external data sources
 
-## Installation
-
-### Option 1: CDN (Fastest)
-
-Add this to your HTML `<head>`:
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/brainwind/brainwind.css">
-```
-
-### Option 2: Download
-
-1. Download `brainwind.css` from this repository
-2. Add to your project: `<link rel="stylesheet" href="path/to/brainwind.css">`
-
-### Option 3: npm (Coming Soon)
-
-```bash
-npm install brainwind
-```
+**No dependencies. No build step. Just semantic HTML.**
 
 ## Basic Usage
 
@@ -137,10 +120,13 @@ Use Brainwind syntax to write about the invention of the telephone.
 
 ## Troubleshooting
 
-**Q: The styling isn't showing up**
-- Make sure `brainwind.css` is loaded
-- Check browser console for errors
-- Verify class names are correct (`.bw-node`, not `.bn-node`)
+**Q: How do I add visual styling?**
+- Brainwind doesn't include CSS
+- Add your own styles to `.bw-node` and `.bw-edge` as needed:
+  ```css
+  .bw-node { border-bottom: 1px dashed blue; }
+  .bw-edge { font-style: italic; color: gray; }
+  ```
 
 **Q: How do I make IDs unique?**
 - Use descriptive kebab-case: `chef-alice-waters`
