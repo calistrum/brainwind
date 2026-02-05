@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Brainwind Example - Pharmaceutical Research</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+        h1 { color: #0f172a; }
+        h2 { color: #334155; margin-top: 2rem; }
+        .stats {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        .query-results {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complex Brainwind Example</h1>
+    <p><strong>Domain:</strong> Pharmaceutical Research & Clinical Trials</p>
+
+    <article class="bw-context" data-bw-vocab="https://schema.org/">
+        <h2>Research Summary</h2>
+        
+        <p>
+            In 
+            <span class="bw-node" data-bw-type="Event" data-bw-id="trial-2024">2024</span>,
+            <span class="bw-node" data-bw-type="Organization" data-bw-id="pharma-tech">PharmaGen Technologies</span>
+            <span class="bw-edge" data-bw-rel="conducted">initiated</span>
+            a 
+            <span class="bw-node" data-bw-type="Event" data-bw-id="phase-3-trial">Phase III clinical trial</span>
+            for 
+            <span class="bw-node" data-bw-type="Product" data-bw-id="drug-bx301">BX-301</span>,
+            a novel 
+            <span class="bw-node" data-bw-type="Concept" data-bw-id="immunotherapy">immunotherapy</span>
+            targeting 
+            <span class="bw-node" data-bw-type="Disease" data-bw-id="melanoma">metastatic melanoma</span>.
+        </p>
+
+        <p>
+            The research 
+            <span class="bw-edge" data-bw-rel="ledBy">was led by</span>
+            <span class="bw-node" data-bw-type="Person" data-bw-id="dr-chen">Dr. Sarah Chen</span>,
+            Chief Scientist at the 
+            <span class="bw-node" data-bw-type="Organization" data-bw-id="stanford-oncology">Stanford Oncology Center</span>
+            in 
+            <span class="bw-node" data-bw-type="Place" data-bw-id="california">California</span>.
+            The study 
+            <span class="bw-edge" data-bw-rel="enrolled">enrolled</span>
+            <span class="bw-node" data-bw-type="Measurement" data-bw-id="patient-count">450 patients</span>
+            across 
+            <span class="bw-node" data-bw-type="Measurement" data-bw-id="site-count">23 sites</span>
+            in the 
+            <span class="bw-node" data-bw-type="Place" data-bw-id="usa">United States</span>
+            and 
+            <span class="bw-node" data-bw-type="Place" data-bw-id="europe">Europe</span>.
+        </p>
+
+        <p>
+            <span class="bw-node" data-bw-type="Product" data-bw-id="drug-bx301">BX-301</span>
+            <span class="bw-edge" data-bw-rel="targets">works by targeting</span>
+            the 
+            <span class="bw-node" data-bw-type="Chemical" data-bw-id="pd1-receptor">PD-1 receptor</span>,
+            <span class="bw-edge" data-bw-rel="blocks">blocking</span>
+            the interaction between 
+            <span class="bw-node" data-bw-type="Chemical" data-bw-id="pd1-protein">PD-1</span>
+            and its ligand 
+            <span class="bw-node" data-bw-type="Chemical" data-bw-id="pdl1-protein">PD-L1</span>.
+            This mechanism 
+            <span class="bw-edge" data-bw-rel="enables">allows</span>
+            <span class="bw-node" data-bw-type="Concept" data-bw-id="t-cells">T-cells</span>
+            to recognize and destroy 
+            <span class="bw-node" data-bw-type="Concept" data-bw-id="cancer-cells">cancer cells</span>
+            more effectively.
+        </p>
+
+        <p>
+            The trial 
+            <span class="bw-edge" data-bw-rel="showed">demonstrated</span>
+            a 
+            <span class="bw-node" data-bw-type="Measurement" data-bw-id="response-rate">38% overall response rate</span>,
+            with a median 
+            <span class="bw-node" data-bw-type="Measurement" data-bw-id="survival-time">progression-free survival of 8.2 months</span>.
+            The results 
+            <span class="bw-edge" data-bw-rel="publishedIn">were published in</span>
+            <span class="bw-node" data-bw-type="Organization" data-bw-id="nejm">The New England Journal of Medicine</span>
+            on 
+            <span class="bw-node" data-bw-type="Event" data-bw-id="publication-date">March 15, 2025</span>.
+        </p>
+
+        <p>
+            Common 
+            <span class="bw-node" data-bw-type="Concept" data-bw-id="side-effects">adverse effects</span>
+            <span class="bw-edge" data-bw-rel="include">included</span>
+            <span class="bw-node" data-bw-type="Disease" data-bw-id="fatigue">fatigue</span> (42%),
+            <span class="bw-node" data-bw-type="Disease" data-bw-id="nausea">nausea</span> (28%), and
+            <span class="bw-node" data-bw-type="Disease" data-bw-id="rash">skin rash</span> (15%).
+            Serious 
+            <span class="bw-node" data-bw-type="Concept" data-bw-id="immune-events">immune-related adverse events</span>
+            occurred in 
+            <span class="bw-node" data-bw-type="Measurement" data-bw-id="serious-ae-rate">8% of patients</span>.
+        </p>
+    </article>
+
+    <div class="stats">
+        <h3>📊 Knowledge Graph Statistics</h3>
+        <p id="entity-count">Analyzing semantic content...</p>
+        <button onclick="showAllEntities()">Show All Entities</button>
+        <button onclick="showRelationships()">Show Relationships</button>
+        <button onclick="queryByType('Organization')">Find Organizations</button>
+        <button onclick="queryByType('Person')">Find People</button>
+        <button onclick="queryByType('Chemical')">Find Chemicals</button>
+        <button onclick="generateRDF()">Generate RDF Triples</button>
+    </div>
+
+    <div id="output" class="query-results" style="display: none;">
+        <strong>Query Results:</strong>
+        <pre id="results"></pre>
+    </div>
+
+    <h2>Why This Matters</h2>
+    <ul>
+        <li><strong>Queryable Knowledge:</strong> Extract all drugs, researchers, or trials instantly</li>
+        <li><strong>Relationship Mapping:</strong> See connections between entities (who researches what, where)</li>
+        <li><strong>AI-Ready:</strong> LLMs can generate this format, making responses structured yet readable</li>
+        <li><strong>Interoperable:</strong> Convert to RDF for integration with knowledge graphs</li>
+        <li><strong>Human-Readable:</strong> Unlike JSON, this is prose that anyone can read</li>
+    </ul>
+
+    <script>
+        // Extract all semantic data
+        const nodes = document.querySelectorAll('.bw-node');
+        const edges = document.querySelectorAll('.bw-edge');
+        
+        // Build entity map
+        const entities = Array.from(nodes).map(node => ({
+            id: node.getAttribute('data-bw-id'),
+            type: node.getAttribute('data-bw-type'),
+            text: node.textContent.trim()
+        }));
+
+        // Build relationship map
+        const relationships = [];
+        nodes.forEach((node, idx) => {
+            const nextEdge = node.nextElementSibling;
+            if (nextEdge && nextEdge.classList.contains('bw-edge')) {
+                const nextNode = nextEdge.nextElementSibling;
+                if (nextNode && nextNode.classList.contains('bw-node')) {
+                    relationships.push({
+                        subject: node.getAttribute('data-bw-id'),
+                        predicate: nextEdge.getAttribute('data-bw-rel'),
+                        object: nextNode.getAttribute('data-bw-id')
+                    });
+                }
+            }
+        });
+
+        // Display stats
+        const typeCount = {};
+        entities.forEach(e => {
+            typeCount[e.type] = (typeCount[e.type] || 0) + 1;
+        });
+
+        document.getElementById('entity-count').innerHTML = `
+            <strong>Total Entities:</strong> ${entities.length}<br>
+            <strong>Relationships:</strong> ${relationships.length}<br>
+            <strong>Entity Types:</strong> ${Object.keys(typeCount).length}<br>
+            ${Object.entries(typeCount).map(([type, count]) => 
+                `&nbsp;&nbsp;• ${type}: ${count}`
+            ).join('<br>')}
+        `;
+
+        function showOutput(content) {
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('results').textContent = content;
+        }
+
+        function showAllEntities() {
+            const output = entities.map(e => 
+                `[${e.type}] ${e.id}: "${e.text}"`
+            ).join('\n');
+            showOutput(output);
+        }
+
+        function showRelationships() {
+            const output = relationships.map(r => 
+                `${r.subject} --[${r.predicate}]--> ${r.object}`
+            ).join('\n');
+            showOutput(output);
+        }
+
+        function queryByType(type) {
+            const filtered = entities.filter(e => e.type === type);
+            const output = filtered.map(e => 
+                `${e.id}: "${e.text}"`
+            ).join('\n');
+            showOutput(`Found ${filtered.length} ${type} entities:\n\n${output}`);
+        }
+
+        function generateRDF() {
+            let rdf = '@prefix bw: <https://brainwind.io/> .\n';
+            rdf += '@prefix schema: <https://schema.org/> .\n\n';
+            
+            entities.forEach(e => {
+                rdf += `bw:${e.id} a schema:${e.type} ;\n`;
+                rdf += `    schema:name "${e.text}" .\n\n`;
+            });
+
+            relationships.forEach(r => {
+                rdf += `bw:${r.subject} bw:${r.predicate} bw:${r.object} .\n`;
+            });
+
+            showOutput(rdf);
+        }
+
+        // Log to console on load
+        console.log('🧠 Brainwind Complex Example');
+        console.log('Entities:', entities);
+        console.log('Relationships:', relationships);
+        console.table(entities);
+    </script>
+</body>
+</html>
