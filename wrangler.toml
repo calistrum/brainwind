@@ -1,5 +1,5 @@
 name = "brainwind"
-compatibility_date = "2024-01-01"
+compatibility_date = "2026-02-05"
 
 [site]
 bucket = "."
