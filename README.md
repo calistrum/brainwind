@@ -6,7 +6,8 @@ Brainwind is a **semantic markup pattern** for creating Relational HTML. It prov
 
 While **Tailwind** manages the _Eyes_ and **HTMX** manages the _Server_, **Brainwind** manages the _Mind_.
 
-👉 **[See it in action: Interactive Demo](https://brainwind.pages.dev/examples/complex)** - Pharmaceutical research example with 30+ entities and live queries
+👉 **[See it in action: Interactive Demo](https://brainwind.pages.dev/examples/health)** - Pharmaceutical research example with 30+ entities and live queries
+👉 **[See it in action: Fintech Demo](https://brainwind.pages.dev/examples/fintech)** - Fintech research example
 
 > **Note**: Brainwind is fundamentally a markup convention and RDF mapping pattern. The CSS file is **entirely optional**—use it only for development/debugging to visualize your semantic annotations.
 
