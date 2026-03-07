@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Brainwind Example</title>
     <!-- NO CSS REQUIRED - Brainwind is just semantic markup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.css"/>
     <style>
         body {
             font-family: system-ui, sans-serif;
@@ -13,21 +14,37 @@
             padding: 0 1rem;
             line-height: 1.6;
         }
+        #tour-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+        #tour-btn:hover { background: #16213e; }
     </style>
 </head>
 <body>
     <h1>Simple Brainwind Example</h1>
-    
+
+    <button id="tour-btn">&#9654;&nbsp; Take the tour</button>
+
     <!-- This is Brainwind - just HTML with semantic attributes -->
-    <p class="bw-context" data-bw-vocab="https://schema.org/">
+    <p id="bw-context-block" class="bw-context" data-bw-vocab="https://schema.org/">
         The 
-        <span class="bw-node" data-bw-type="Product" data-bw-id="san-marzano">
+        <span id="bw-node-subject" class="bw-node" data-bw-type="Product" data-bw-id="san-marzano">
             San Marzano Tomatoes
         </span> 
         are
-        <i class="bw-edge" data-bw-rel="grownIn">harvested from</i> 
+        <i id="bw-edge" class="bw-edge" data-bw-rel="grownIn">harvested from</i> 
         the volcanic soil of 
-        <span class="bw-node" data-bw-type="Place" data-bw-id="mount-vesuvius">
+        <span id="bw-node-object" class="bw-node" data-bw-type="Place" data-bw-id="mount-vesuvius">
             Mount Vesuvius
         </span>.
     </p>
@@ -35,15 +52,15 @@
     <hr>
 
     <h3>What this creates:</h3>
-    <ul>
+    <ul id="rdf-triple">
         <li><strong>Subject:</strong> San Marzano Tomatoes (Product)</li>
         <li><strong>Predicate:</strong> grownIn</li>
         <li><strong>Object:</strong> Mount Vesuvius (Place)</li>
     </ul>
 
-    <p><small>Open browser console to see extracted semantic data.</small></p>
+    <p id="console-hint"><small>Open browser console to see extracted semantic data.</small></p>
 
-    <script>
+    <script id="extraction-note"></script>
         // Extract and display semantic data
         const nodes = document.querySelectorAll('.bw-node');
         const edges = document.querySelectorAll('.bw-edge');
@@ -58,6 +75,87 @@
                 type: node.getAttribute('data-bw-type'),
                 text: node.textContent.trim()
             });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.js"></script>
+    <script>
+        const { driver } = window.driver.js;
+
+        const tourDriver = driver({
+            showProgress: true,
+            steps: [
+                {
+                    element: '#bw-context-block',
+                    popover: {
+                        title: '1 — The context wrapper',
+                        description:
+                            '<code>class="bw-context"</code> is the outer container. ' +
+                            '<code>data-bw-vocab</code> declares the vocabulary — Schema.org here. ' +
+                            'Everything inside shares this vocabulary without repeating it.',
+                        side: 'bottom', align: 'start'
+                    }
+                },
+                {
+                    element: '#bw-node-subject',
+                    popover: {
+                        title: '2 — Subject node',
+                        description:
+                            '<code>class="bw-node"</code> marks an entity. ' +
+                            '<code>data-bw-type="Product"</code> maps to Schema.org’s Product class ' +
+                            'and <code>data-bw-id</code> gives it a stable, unique identifier.',
+                        side: 'bottom', align: 'start'
+                    }
+                },
+                {
+                    element: '#bw-edge',
+                    popover: {
+                        title: '3 — The relationship (edge)',
+                        description:
+                            '<code>class="bw-edge"</code> declares the relationship between two nodes. ' +
+                            '<code>data-bw-rel="grownIn"</code> becomes the RDF predicate. ' +
+                            'The element’s text (“harvested from”) is the human-readable label.',
+                        side: 'bottom', align: 'center'
+                    }
+                },
+                {
+                    element: '#bw-node-object',
+                    popover: {
+                        title: '4 — Object node',
+                        description:
+                            'The second <code>bw-node</code> is the object of the triple. ' +
+                            '<code>data-bw-type="Place"</code> + <code>data-bw-id="mount-vesuvius"</code> ' +
+                            'makes this entity independently referenceable.',
+                        side: 'top', align: 'start'
+                    }
+                },
+                {
+                    element: '#rdf-triple',
+                    popover: {
+                        title: '5 — The resulting RDF triple',
+                        description:
+                            'Together the three elements form one RDF triple: ' +
+                            '<strong>Subject → Predicate → Object</strong>. ' +
+                            'The prose is readable by humans; the attributes are readable by machines — same document, no duplication.',
+                        side: 'top', align: 'start'
+                    }
+                },
+                {
+                    element: '#console-hint',
+                    popover: {
+                        title: '6 — Zero-dependency extraction',
+                        description:
+                            'Because Brainwind is plain HTML, you query it with standard ' +
+                            '<code>querySelectorAll(\'.bw-node\')</code> — no special parser, ' +
+                            'no runtime, no build step. Open the browser console to see it in action.',
+                        side: 'top', align: 'start'
+                    }
+                }
+            ]
+        });
+
+        document.getElementById('tour-btn').addEventListener('click', function () {
+            tourDriver.drive();
         });
     </script>
 </body>

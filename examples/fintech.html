@@ -396,8 +396,62 @@ pre .ce  { color: #e07070; }   /* error/warn */
   .section-aside { position: static; }
   .site-footer { padding: 32px 20px; }
   pre { font-size: 11.5px; padding: 18px; }
+  .preview-strip { padding: 32px 20px 40px; }
+  .preview-strip-grid { grid-template-columns: 1fr; }
 }
+
+/* ── SCREENSHOT PREVIEW STRIP ───────────────────────────────── */
+.preview-strip {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 56px;
+  border-bottom: 1px solid var(--rule);
+}
+.preview-strip-kicker {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 8px;
+}
+.preview-strip-desc {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--ink2);
+  max-width: 640px;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.preview-strip-desc strong { color: var(--ink); }
+.preview-strip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* ── GUIDED TOUR BUTTON ──────────────────────────────────────── */
+#bw-tour-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+#bw-tour-btn:hover { background: var(--accent); }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.css"/>
 </head>
 <body>
 
@@ -407,10 +461,11 @@ pre .ce  { color: #e07070; }   /* error/warn */
     <a href="https://github.com/calistrum/brainwind">GitHub</a>
     <a href="https://schema.org">Schema.org</a>
     <a href="https://htmx.org">HTMX</a>
+    <button id="bw-tour-btn">&#9654;&ensp;Guided tour</button>
   </nav>
 </header>
 
-<div class="hero">
+<div id="tour-hero" class="hero">
   <div class="hero-kicker">Tailwind styles the pixels. Brainwind styles the semantics.</div>
   <h1 class="hero-title">Semantic HTML<br>as LLM output.<br><em>No framework required.</em></h1>
   <p class="hero-lede">
@@ -426,10 +481,20 @@ pre .ce  { color: #e07070; }   /* error/warn */
   </div>
 </div>
 
+<div id="tour-preview" class="preview-strip">
+  <div class="preview-strip-kicker">See it for yourself</div>
+  <p class="preview-strip-desc">
+    Ask an LLM about an institution. It returns readable prose <strong>and</strong> machine-parseable
+    entity nodes — in the same HTML document. The screenshots below show the raw annotated output
+    (left) and the four entities extracted from it with a single <code>querySelectorAll</code> (right).
+  </p>
+  <div class="preview-strip-grid" id="preview-grid"></div>
+</div>
+
 <div class="body-wrap">
 
 <!-- ── THE PROBLEM ──────────────────────────────────────────── -->
-<div class="section">
+<div id="tour-s01" class="section">
   <div class="section-aside">
     <div class="section-num">01</div>
     <div class="section-heading">The problem this tries to solve</div>
@@ -486,7 +551,7 @@ pre .ce  { color: #e07070; }   /* error/warn */
     </p>
 
     <div class="code-label">System prompt — core convention</div>
-<pre><span class="cc"># When your response contains named entities, annotate them using Brainwind.
+<pre id="tour-sysprompt"><span class="cc"># When your response contains named entities, annotate them using Brainwind.
 # Wrap your entire response in a .bw-context element.</span>
 
 <span class="cc">## Node</span>
@@ -578,7 +643,7 @@ and Retirement Fund.</div>
     </p>
 
     <div class="code-label">LLM output — excerpt</div>
-<pre><span class="ct">&lt;div</span> <span class="ck">class</span>=<span class="cv">"bw-context"</span> <span class="ca">data-bw-vocab</span>=<span class="cv">"https://schema.org/"</span><span class="ct">&gt;</span>
+<pre id="tour-output"><span class="ct">&lt;div</span> <span class="ck">class</span>=<span class="cv">"bw-context"</span> <span class="ca">data-bw-vocab</span>=<span class="cv">"https://schema.org/"</span><span class="ct">&gt;</span>
 
   <span class="ct">&lt;p&gt;</span>The CTPF is a major institutional investor managing retirement
   assets for public school teachers in Chicago...<span class="ct">&lt;/p&gt;</span>
@@ -658,7 +723,7 @@ and Retirement Fund.</div>
     </p>
 
     <div class="code-label">Extract all nodes — browser or Node.js</div>
-<pre><span class="cc">// Every bw-node in the document, as plain objects</span>
+<pre id="tour-extract"><span class="cc">// Every bw-node in the document, as plain objects</span>
 const nodes = [...document.querySelectorAll(<span class="cv">'.bw-node'</span>)].map(el => ({
   id:    el.dataset.bwId,
   type:  el.dataset.bwType,
@@ -712,7 +777,7 @@ const nodes = [...document.querySelectorAll(<span class="cv">'.bw-node'</span>)]
       Brainwind page without loss.
     </p>
 
-    <table class="std-table">
+    <table id="tour-standards" class="std-table">
       <thead>
         <tr>
           <th>Brainwind attribute</th>
@@ -788,6 +853,116 @@ const nodes = [...document.querySelectorAll(<span class="cv">'.bw-node'</span>)]
     <div class="footer-right">The web was always meant to be a knowledge graph.</div>
   </div>
 </footer>
+
+<script>
+  // Hoist both screenshots into the hero preview strip so visitors
+  // see the output immediately without scrolling.
+  (function () {
+    var grid = document.getElementById('preview-grid');
+    if (!grid) return;
+    document.querySelectorAll('figure.screenshot').forEach(function (fig) {
+      grid.appendChild(fig);
+    });
+  })();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.js.iife.js"></script>
+<script>
+  (function () {
+    const { driver } = window.driver.js;
+
+    const tour = driver({
+      showProgress: true,
+      steps: [
+        {
+          element: '#tour-hero',
+          popover: {
+            title: '1 — What is Brainwind?',
+            description:
+              'Brainwind is a <strong>markup convention</strong>, not a library. ' +
+              'It adds semantic attributes (<code>bw-node</code>, <code>bw-edge</code>, <code>bw-context</code>) ' +
+              'to standard HTML so the same document is readable by humans <em>and</em> parseable by machines. ' +
+              'No framework, no build step, no runtime.',
+            side: 'bottom', align: 'start'
+          }
+        },
+        {
+          element: '#tour-preview',
+          popover: {
+            title: '2 — See the output first',
+            description:
+              'Before reading the explainer, here is what Brainwind produces. ' +
+              'Left: the raw annotated HTML the LLM returned. ' +
+              'Right: four structured entity cards extracted with a single <code>querySelectorAll</code> call. ' +
+              'Same document — two readings.',
+            side: 'bottom', align: 'start'
+          }
+        },
+        {
+          element: '#tour-s01',
+          popover: {
+            title: '3 — The problem',
+            description:
+              'LLM responses are prose — useful for reading, useless for processing. ' +
+              'Ask for JSON and you lose the narrative. ' +
+              'Brainwind aims for the middle ground: a single response that is <strong>both things at once</strong>.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '#tour-sysprompt',
+          popover: {
+            title: '4 — One system prompt establishes the contract',
+            description:
+              'The entire convention is defined once in the system prompt. ' +
+              'It teaches the LLM three things: the <code>bw-node</code> markup pattern, ' +
+              'the <code>data-bw-props</code> property-bag syntax, and the taxonomy of valid values. ' +
+              'The LLM then produces valid Brainwind as a side effect of answering normally.',
+            side: 'top', align: 'start'
+          }
+        },
+        {
+          element: '#tour-output',
+          popover: {
+            title: '5 — The annotated LLM response',
+            description:
+              'The LLM wraps its response in <code>bw-context</code>, marks entities as <code>bw-node</code> ' +
+              '(with <code>data-bw-type</code>, <code>data-bw-id</code>, <code>data-bw-props</code>), ' +
+              'and links them with <code>bw-edge</code> elements. The prose is unchanged — the attributes ride alongside it.',
+            side: 'top', align: 'start'
+          }
+        },
+        {
+          element: '#tour-extract',
+          popover: {
+            title: '6 — Extraction is just a selector',
+            description:
+              'Because Brainwind uses standard HTML attributes, no special parser is needed. ' +
+              '<code>querySelectorAll(\'.bw-node\')</code> returns every entity. ' +
+              '<code>el.dataset.bwProps</code> gives you the property bag. ' +
+              'Works in the browser, in Node.js, or in any HTML parser.',
+            side: 'top', align: 'start'
+          }
+        },
+        {
+          element: '#tour-standards',
+          popover: {
+            title: '7 — Grounded in existing standards',
+            description:
+              'Brainwind is not a new ontology. Every attribute maps to something already established: ' +
+              '<code>data-bw-type</code> → Schema.org class, <code>data-bw-vocab</code> → JSON-LD <code>@context</code>, ' +
+              '<code>data-bw-rel</code> → RDF predicate. A serialiser can emit valid JSON-LD or Turtle from any Brainwind page.',
+            side: 'top', align: 'start'
+          }
+        }
+      ]
+    });
+
+    document.getElementById('bw-tour-btn').addEventListener('click', function () {
+      tour.drive();
+    });
+  })();
+</script>
 
 </body>
 </html>
